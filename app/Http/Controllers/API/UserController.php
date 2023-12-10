@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,26 +41,28 @@ public function login(Request $request)
 
 public function registro(Request $request)
 {
-    // Validar los datos users 
-    $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:8|confirmed',
+    try {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|confirmed',
         ]);
 
-    // Crear nuevo usuario
-    $user = new User();
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors()], 422);
+        }
 
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
 
-    $user->save();
-
-    return response()->json(['message' => 'Usuario actualizado con éxito', 'user' => $user]);
+        return response()->json(['message' => 'Usuario creado con éxito', 'user' => $user], 201);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Error al registrar el usuario', 'error' => $e->getMessage()], 500);
+    }
 }
-
-
 
 
 
