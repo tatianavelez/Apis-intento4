@@ -79,6 +79,59 @@ public function traertodos()
 
 
 
+
+
+//VER PERFIL
+public function getProfile(Request $request)
+{
+    $user = $request->user();
+    return response()->json([
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+    ]);
+}
+
+
+//ACTUALIZAR PERFIL
+public function updateProfile(Request $request)
+{
+$user = $request->user();
+
+$this->validate($request, [
+    'name' => 'required|string|max:255',
+    'email' => 'required|email|unique:users,email,' . $user->id,
+    'password' => 'nullable|string|min:6', 
+]);
+
+$user->name = $request->input('name');
+$user->email = $request->input('email');
+
+if ($request->filled('password')) {
+    $user->password = Hash::make($request->input('password'));
+}
+
+$user->save();
+
+return response()->json([
+    'message' => 'Perfil actualizado con éxito',
+    'user' => [
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+    ],
+]);
+}
+
+
+
+
+
+
+
+
+
+
 } 
 
 

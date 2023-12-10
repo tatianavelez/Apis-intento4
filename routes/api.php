@@ -28,3 +28,10 @@ Route::put('/ingredients/{id}', [ComidaController::class, 'actualiz']);
 Route::delete('/ingredients/{id}', [ComidaController::class, 'elimi']);
 
 
+//Usuario ver y actualizar perfil 
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/profile', [UserController::class, 'getProfile']);
+    Route::put('/profile', [UserController::class, 'updateProfile']);
+});
