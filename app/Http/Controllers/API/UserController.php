@@ -38,6 +38,36 @@ public function login(Request $request)
 }
 
 
+public function registro(Request $request)
+{
+    // Validar los datos users 
+    $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:8|confirmed',
+        ]);
+
+    // Crear nuevo usuario
+    $user = new User();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->password = bcrypt($request->password);
+
+
+    $user->save();
+
+    return response()->json(['message' => 'Usuario actualizado con éxito', 'user' => $user]);
+}
+
+
+
+
+
+
+
+
+
+
 
 public function traertodos()
 {

@@ -18,3 +18,6 @@ use App\Http\Controllers\API\UserController;
 
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/users', [UserController::class, 'traertodos']);
+
+
+Route::post('/registro', [UserController::class, 'registro']);

@@ -10,8 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    const ROLE_ADMIN = 'administrador';
-    const ROLE_USER = 'usuario';
 
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -24,20 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_photo',
-        'id_cargo',
-        'relay_state',
     ];
-
-    public function sensors()
-    {
-        return $this->hasMany(Sensor::class);
-    }
-
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class, 'id_cargo');
-    }
 
     /**
      * The attributes that should be hidden for serialization.
