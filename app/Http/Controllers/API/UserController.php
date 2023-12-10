@@ -57,7 +57,7 @@ public function registro(Request $request)
 
     $user->save();
 
-    return response()->json(['message' => 'Usuario actualizado con éxito', 'user' => $user]);
+    return response()->json(['message' => 'Usuario registrado con éxito', 'user' => $user]);
 }
 
 
