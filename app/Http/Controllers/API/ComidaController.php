@@ -65,7 +65,7 @@ class ComidaController extends Controller
         $ingredient = Ingredient::findOrFail($id);
         $ingredient->delete();
 
-        return response()->json(['message' => 'Ingredient deleted successfully'], 200);
+        return response()->json(['message' => 'Ingrediente eliminado'], 200);
     }
 
 
