@@ -23,3 +23,4 @@ Route::get('/users', [UserController::class, 'traertodos']);
 
 Route::post('/registro', [UserController::class, 'registro']);
 Route::get('/ingredients', [ComidaController::class, 'ingre']);
+Route::post('/ingredients', [ComidaController::class, 'crear']);

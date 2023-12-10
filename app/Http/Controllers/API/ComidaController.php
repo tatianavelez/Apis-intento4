@@ -21,6 +21,25 @@ class ComidaController extends Controller
     }
 
 
+
+    public function crear(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|unique:ingredients',
+            'type' => 'required',
+        ]);
+
+        $ingredient = Ingredient::create([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+        ]);
+
+        return response()->json($ingredient, 201);
+    }
+
+
+
+
 } 
 
 
