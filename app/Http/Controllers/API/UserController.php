@@ -44,8 +44,8 @@ public function registro(Request $request)
     $this->validate($request, [
         'name' => 'required',
         'email' => 'required|email|unique:users',
-        'password' => 'required|min:8|confirmed',
-        ]);
+        'password' => 'required|min:8', 
+    ]);
 
     // Crear nuevo usuario
     $user = new User();
