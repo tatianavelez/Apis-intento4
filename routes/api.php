@@ -16,11 +16,15 @@ use App\Http\Controllers\API\ComidaController;
 |
 */
 
-
+//USUARIOS MANEJO
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/users', [UserController::class, 'traertodos']);
 
-
+// CRUD INGREDIENTES
 Route::post('/registro', [UserController::class, 'registro']);
 Route::get('/ingredients', [ComidaController::class, 'ingre']);
 Route::post('/ingredients', [ComidaController::class, 'crear']);
+Route::put('/ingredients/{id}', [ComidaController::class, 'actualiz']);
+Route::delete('/ingredients/{id}', [ComidaController::class, 'elimi']);
+
+

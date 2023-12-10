@@ -38,6 +38,35 @@ class ComidaController extends Controller
     }
 
 
+//ACTUALIZAR INGREDISTES
+
+    public function actualiz(Request $request, $id)
+    {
+        $ingredient = Ingredient::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|unique:ingredients,name,' . $id,
+            'type' => 'required',
+        ]);
+
+        $ingredient->update([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+        ]);
+
+        return response()->json($ingredient, 200);
+    }
+
+
+
+    //ELIMINAR INGRE
+    public function elimi($id)
+    {
+        $ingredient = Ingredient::findOrFail($id);
+        $ingredient->delete();
+
+        return response()->json(['message' => 'Ingredient deleted successfully'], 200);
+    }
 
 
 } 
