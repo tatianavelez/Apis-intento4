@@ -54,6 +54,8 @@ public function registro(Request $request)
     $user->password = bcrypt($request->password);
 
     $user->save();
+    //prueba si no borrar 
+    $token = $user->createToken('auth_token')->plainTextToken;
 
     return response()->json(['message' => 'Usuario actualizado con éxito', 'user' => $user]);
 }
