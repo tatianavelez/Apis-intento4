@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ComidaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::get('/users', [UserController::class, 'traertodos']);
 
 
 Route::post('/registro', [UserController::class, 'registro']);
+Route::get('/ingredients', [ComidaController::class, 'ingre']);
