@@ -28,7 +28,7 @@ Route::put('/ingredients/{id}', [ComidaController::class, 'actualiz']);
 Route::delete('/ingredients/{id}', [ComidaController::class, 'elimi']);
 
 
-//Usuario ver y actualizar perfil 
+//Usuario ver y actualizar perfil
 
 Route::middleware('auth:sanctum')->group(function () {
 

@@ -41,22 +41,21 @@ public function login(Request $request)
 
 public function registro(Request $request)
 {
-    try {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
+    // Validar los datos users 
+    $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:8|confirmed',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors()], 422);
-        }
+    // Crear nuevo usuario
+    $user = new User();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->password = bcrypt($request->password);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+
+    $user->save();
 
         return response()->json(['message' => 'Usuario creado con éxito', 'user' => $user], 201);
     } catch (\Exception $e) {
@@ -74,9 +73,9 @@ public function registro(Request $request)
 
 public function traertodos()
 {
-    
+
     $users = User::all();
-    
+
     return response()->json(['users' => $users]);
 }
 
@@ -104,7 +103,7 @@ $user = $request->user();
 $this->validate($request, [
     'name' => 'required|string|max:255',
     'email' => 'required|email|unique:users,email,' . $user->id,
-    'password' => 'nullable|string|min:6', 
+    'password' => 'nullable|string|min:6',
 ]);
 
 $user->name = $request->input('name');
@@ -135,7 +134,7 @@ return response()->json([
 
 
 
-} 
+}
 
 
 
