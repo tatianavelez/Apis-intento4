@@ -48,7 +48,7 @@ public function registro(Request $request)
         ]);
 
     // Crear nuevo usuario
-    $user = new->User();
+    $user = new User();
     $user->name = $request->name;
     $user->email = $request->email;
     $user->password = bcrypt($request->password);
